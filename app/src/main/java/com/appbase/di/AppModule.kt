@@ -4,13 +4,10 @@ import android.content.Context
 import android.content.SharedPreferences
 import com.appbase.data.preference.AuthInterceptor
 import com.appbase.data.remote.ApiService
-import com.appbase.data.repository.AppRepositoryImpl
-import com.appbase.domain.usecase.AppUseCase
 import com.chuckerteam.chucker.api.ChuckerCollector
 import com.chuckerteam.chucker.api.ChuckerInterceptor
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder
-import dagger.Binds
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -64,7 +61,6 @@ object AppModule {
     fun provideRetrofit(
         okHttpClient: OkHttpClient,
         gson: Gson,
-        @ApplicationContext context: Context
     ): Retrofit {
         return Retrofit.Builder()
             .client(okHttpClient)
