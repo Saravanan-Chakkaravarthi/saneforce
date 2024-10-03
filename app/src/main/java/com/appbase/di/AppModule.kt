@@ -42,18 +42,11 @@ object AppModule {
 
     @Provides
     @Singleton
-    fun provideOkHttpClient(): OkHttpClient {
-        return OkHttpClient.Builder().build()
-    }
-
-    @Provides
-    @Singleton
     fun provideOkHttpClient(
-        okHttpClient: OkHttpClient,
         authInterceptor: AuthInterceptor,
         @ApplicationContext context: Context
     ): OkHttpClient {
-        return okHttpClient.newBuilder()
+        return OkHttpClient.Builder()
             .addInterceptor(authInterceptor)
             .addInterceptor(
                 ChuckerInterceptor.Builder(context)
@@ -68,18 +61,20 @@ object AppModule {
 
     @Provides
     @Singleton
-    fun provideApiService(
+    fun provideRetrofit(
         okHttpClient: OkHttpClient,
         gson: Gson,
-    ): ApiService {
-        val retrofit = Retrofit.Builder()
+        @ApplicationContext context: Context
+    ): Retrofit {
+        return Retrofit.Builder()
             .client(okHttpClient)
-            .addConverterFactory(
-                GsonConverterFactory.create(gson)
-            )
-            .baseUrl("baseUrl")
+            .addConverterFactory(GsonConverterFactory.create(gson))
+            .baseUrl("")
             .build()
-
-        return retrofit.create(ApiService::class.java)
     }
+
+    @Provides
+    @Singleton
+    fun provideApiService(retrofit: Retrofit): ApiService =
+        retrofit.create(ApiService::class.java)
 }
