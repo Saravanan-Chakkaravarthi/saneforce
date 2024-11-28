@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="10dp">
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/tv_product_name"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:textColor="@color/black"
+        android:textSize="14sp"
+        app:layout_constraintEnd_toStartOf="@id/btn_delete"
+        app:layout_constraintBottom_toTopOf="@id/layout_counter"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="Arokya 150 Ml Milk" />
+
+    <ImageButton
+        android:id="@+id/btn_delete"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:backgroundTint="@color/design_default_color_primary"
+        android:contentDescription="@string/delete_desc"
+        android:src="@drawable/ic_delete"
+        app:layout_constraintBottom_toBottomOf="@id/tv_product_name"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@id/tv_product_name" />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/layout_counter"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/tv_product_name"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/view_separator">
+        <EditText
+            android:id="@+id/et_rate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="15dp"
+            android:hint="0"
+            android:textSize="12sp"
+            android:inputType="number"
+            android:maxLength="5"
+            android:textColor="@color/black"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"/>
+
+        <ImageButton
+            android:id="@+id/btn_add"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_marginStart="4dp"
+            android:backgroundTint="@color/design_default_color_primary"
+            android:contentDescription="@string/delete_desc"
+            android:src="@drawable/ic_add"
+            app:layout_constraintStart_toEndOf="@id/et_rate"
+            app:layout_constraintBottom_toBottomOf="@id/et_rate"
+            app:layout_constraintTop_toTopOf="@id/et_rate" />
+
+        <EditText
+            android:id="@+id/et_quantity"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="12sp"
+            android:hint="0"
+            android:inputType="number"
+            android:maxLength="2"
+            android:textColor="@color/black"
+            android:layout_marginStart="4dp"
+            app:layout_constraintStart_toEndOf="@id/btn_add"
+            app:layout_constraintTop_toTopOf="@id/btn_add"
+            app:layout_constraintBottom_toBottomOf="@id/btn_add"/>
+
+        <ImageButton
+            android:id="@+id/btn_minus"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_marginStart="4dp"
+            android:backgroundTint="@color/design_default_color_primary"
+            android:contentDescription="@string/delete_desc"
+            android:src="@drawable/ic_minus"
+            app:layout_constraintStart_toEndOf="@id/et_quantity"
+            app:layout_constraintBottom_toBottomOf="@id/et_quantity"
+            app:layout_constraintTop_toTopOf="@id/et_quantity" />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/tv_total_value"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/black"
+            android:textSize="14sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toEndOf="@id/btn_minus"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="20000" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+    <View
+        android:id="@+id/view_separator"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/gray"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/layout_counter"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

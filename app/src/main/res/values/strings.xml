@@ -1,3 +1,5 @@
 <resources>
-    <string name="app_name">AppBase</string>
+    <string name="app_name">App SaneForce</string>
+    <string name="delete_desc">Delete</string>
+    <string name="label_save">Save</string>
 </resources>

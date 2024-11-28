@@ -9,7 +9,7 @@ import dagger.hilt.android.components.ViewModelComponent
 
 @Module
 @InstallIn(ViewModelComponent::class)
-abstract class ViewModule {
+abstract class ViewModelModule {
 
     @Binds
     abstract fun provideRepositoryUseCase(

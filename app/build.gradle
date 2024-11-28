@@ -26,6 +26,11 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
+
+    buildFeatures {
+        viewBinding true
+    }
+
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
@@ -61,6 +66,16 @@ dependencies {
     def chucker = "4.0.0"
     debugImplementation "com.github.chuckerteam.chucker:library:$chucker"
     releaseImplementation "com.github.chuckerteam.chucker:library-no-op:$chucker"
+
+    // coroutine version
+    def coroutine_version = "1.7.3"
+    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:$coroutine_version")
+    testImplementation "org.jetbrains.kotlinx:kotlinx-coroutines-test:$coroutine_version"
+
+    // mockito
+    def mockito_version = "5.2.1"
+    testImplementation("org.mockito:mockito-core:$mockito_version")
+    testImplementation("org.mockito.kotlin:mockito-kotlin:$mockito_version")
 }
 
 // Allow references to generated code
