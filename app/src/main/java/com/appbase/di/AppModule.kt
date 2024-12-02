@@ -2,7 +2,6 @@ package com.appbase.di
 
 import android.content.Context
 import android.content.SharedPreferences
-import com.appbase.data.preference.AuthInterceptor
 import com.appbase.data.remote.ApiService
 import com.appbase.utils.Constants
 import com.chuckerteam.chucker.api.ChuckerCollector
@@ -15,6 +14,7 @@ import dagger.hilt.InstallIn
 import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
 import okhttp3.OkHttpClient
+import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import javax.inject.Singleton
@@ -38,14 +38,22 @@ object AppModule {
         return GsonBuilder().create()
     }
 
+
+    @Provides
+    @Singleton
+    fun provideLoggingInterceptor(): HttpLoggingInterceptor {
+        val interceptor = HttpLoggingInterceptor()
+        return interceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
+    }
+
     @Provides
     @Singleton
     fun provideOkHttpClient(
-        authInterceptor: AuthInterceptor,
+        logInterceptor: HttpLoggingInterceptor,
         @ApplicationContext context: Context
     ): OkHttpClient {
         return OkHttpClient.Builder()
-            .addInterceptor(authInterceptor)
+            .addInterceptor(logInterceptor)
             .addInterceptor(
                 ChuckerInterceptor.Builder(context)
                     .collector(ChuckerCollector(context))

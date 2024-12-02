@@ -21,7 +21,7 @@ class ProductAdapter(
     }
 
 
-    inner class ProductViewHolder(val binding: LayoutProductListBinding) :
+    inner class ProductViewHolder(private val binding: LayoutProductListBinding) :
         RecyclerView.ViewHolder(binding.root) {
 
         fun bind(product: Product) {
@@ -65,6 +65,41 @@ class ProductAdapter(
                 }
                 etRate.addTextChangedListener(rateWatcher)
                 etRate.tag = rateWatcher
+
+                // Counter text watcher
+                etQuantity.removeTextChangedListener(etRate.tag as? TextWatcher)
+                val counterWatcher = object : TextWatcher {
+                    override fun beforeTextChanged(
+                        s: CharSequence?,
+                        start: Int,
+                        count: Int,
+                        after: Int
+                    ) {
+                    }
+
+                    override fun onTextChanged(
+                        s: CharSequence?,
+                        start: Int,
+                        before: Int,
+                        count: Int
+                    ) {
+                        product.price = etRate.text.toString().ifEmpty { "0" }
+                        val quantity = if (!s.isNullOrEmpty()) s.toString() else "1"
+                        updateTotalValue(
+                            product.price?.toInt() ?: 0,
+                            quantity.toInt(),
+                            tvTotalValue
+                        )
+                        product.total = tvTotalValue.text.toString()
+                        productListener.getProductItem(productList)
+                    }
+
+                    override fun afterTextChanged(s: Editable?) {}
+                }
+
+
+                etQuantity.addTextChangedListener(counterWatcher)
+                etQuantity.tag = rateWatcher
 
                 // Handle Add button click
                 btnAdd.setOnClickListener {
@@ -130,7 +165,7 @@ class ProductAdapter(
         holder.bind(product)
     }
 
-    private fun updateTotalValue(rate: Int, quantity: Int, tvTotalValue: MaterialTextView) {
+    private fun updateTotalValue(rate: Int = 0, quantity: Int, tvTotalValue: MaterialTextView) {
         tvTotalValue.text = "${rate * quantity}"
     }
 }
